@@ -1,0 +1,35 @@
+class ArbreBinaire:
+    # Constructeur
+    def __init__(self, clef=None, gauche=None, droite=None):
+        self.clef = clef
+        self.gauche = gauche
+        self.droite = droite
+
+    # Constructeur pour l'arbre vide
+    @staticmethod
+    def arbreVide():
+        return ArbreBinaire()
+
+    # Getters et setters
+    def getClef(self):
+        return self.clef
+
+    def setClef(self, clef):
+        self.clef = clef
+
+    def getGauche(self):
+        return self.gauche
+
+    def setGauche(self, gauche):
+        self.gauche = gauche
+
+    def getDroite(self):
+        return self.droite
+
+    def setDroite(self, droite):
+        self.droite = droite
+
+    # Méthode creer
+    @staticmethod
+    def creer():
+        return ArbreBinaire.arbreVide()

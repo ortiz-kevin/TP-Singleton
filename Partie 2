@@ -1,35 +1,34 @@
-class ArbreBinaire:
-    # Constructeur
-    def __init__(self, clef=None, gauche=None, droite=None):
-        self.clef = clef
-        self.gauche = gauche
-        self.droite = droite
-
-    # Constructeur pour l'arbre vide
+class Main:
     @staticmethod
-    def arbreVide():
-        return ArbreBinaire()
+    def afficher_arbre(arbre, niveau=0, prefixe=""):
+        if arbre is not None:
+            Main.afficher_arbre(arbre.getDroite(), niveau + 1, "D: ")
+            print("  " * niveau + prefixe + str(arbre.getClef()))
+            Main.afficher_arbre(arbre.getGauche(), niveau + 1, "G: ")
 
-    # Getters et setters
-    def getClef(self):
-        return self.clef
-
-    def setClef(self, clef):
-        self.clef = clef
-
-    def getGauche(self):
-        return self.gauche
-
-    def setGauche(self, gauche):
-        self.gauche = gauche
-
-    def getDroite(self):
-        return self.droite
-
-    def setDroite(self, droite):
-        self.droite = droite
-
-    # Méthode creer
     @staticmethod
-    def creer():
-        return ArbreBinaire.arbreVide()
+    def inserer(arbre, valeur):
+        if arbre is None:
+            return ArbreBinaire(valeur)
+        elif valeur < arbre.getClef():
+            arbre.setGauche(Main.inserer(arbre.getGauche(), valeur))
+        elif valeur > arbre.getClef():
+            arbre.setDroite(Main.inserer(arbre.getDroite(), valeur))
+        return arbre
+
+    @staticmethod
+    def tester_application():
+        # Création de l'arbre vide
+        arbre = ArbreBinaire.arbreVide()
+
+        # Insertion de valeurs
+        valeurs = [5, 3, 8, 2, 4, 7, 9]
+        for valeur in valeurs:
+            arbre = Main.inserer(arbre, valeur)
+
+        # Affichage de l'arbre
+        print("Affichage de l'arbre après insertion des valeurs :")
+        Main.afficher_arbre(arbre)
+
+# Tester l'application
+Main.tester_application()

@@ -1,35 +1,44 @@
 class ArbreBinaire:
-    # Constructeur
-    def __init__(self, clef=None, gauche=None, droite=None):
-        self.clef = clef
-        self.gauche = gauche
-        self.droite = droite
+    # ... (code précédent)
 
-    # Constructeur pour l'arbre vide
-    @staticmethod
-    def arbreVide():
-        return ArbreBinaire()
+    # Méthode estVide
+    def estVide(self):
+        return self.clef is None
 
-    # Getters et setters
-    def getClef(self):
-        return self.clef
+    # Méthode taille
+    def taille(self):
+        if self.estVide():
+            return 0
+        else:
+            return 1 + (self.gauche.taille() if self.gauche else 0) + (self.droite.taille() if self.droite else 0)
 
-    def setClef(self, clef):
-        self.clef = clef
+    # Méthode de recherche
+    def rechercher(self, valeur):
+        if self.estVide():
+            return False
+        elif self.clef == valeur:
+            return True
+        elif valeur < self.clef:
+            return self.gauche.rechercher(valeur) if self.gauche else False
+        else:
+            return self.droite.rechercher(valeur) if self.droite else False
 
-    def getGauche(self):
-        return self.gauche
+# Tester l'application
+if __name__ == "__main__":
+    # Création de l'arbre vide
+    arbre = ArbreBinaire.arbreVide()
 
-    def setGauche(self, gauche):
-        self.gauche = gauche
+    # Insertion de valeurs
+    valeurs = [5, 3, 8, 2, 4, 7, 9]
+    for valeur in valeurs:
+        arbre = Main.inserer(arbre, valeur)
 
-    def getDroite(self):
-        return self.droite
+    # Affichage de l'arbre
+    print("Affichage de l'arbre après insertion des valeurs :")
+    Main.afficher_arbre(arbre)
 
-    def setDroite(self, droite):
-        self.droite = droite
-
-    # Méthode creer
-    @staticmethod
-    def creer():
-        return ArbreBinaire.arbreVide()
+    # Test des opérations
+    print("L'arbre est vide ?", arbre.estVide())
+    print("Taille de l'arbre :", arbre.taille())
+    print("Recherche de la valeur 7 :", arbre.rechercher(7))
+    print("Recherche de la valeur 10 :", arbre.rechercher(10))
